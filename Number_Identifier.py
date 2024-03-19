@@ -10,7 +10,7 @@ from keras.layers import TFSMLayer
 # Create a Keras model using the loaded inference-only layer
 #model = tf.keras.Sequential([inference_layer])
 model = tf.keras.models.load_model('handwritten2.keras')
-image_number = 3
+image_number = 7
 
 while os.path.isfile(f"numbers/num{image_number}.png"):
     try:

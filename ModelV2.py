@@ -56,7 +56,7 @@ test = test.values.reshape(-1,28,28,1)
 Y_train = to_categorical(Y_train, num_classes = 10)
 
 # Set the random seed
-random_seed = 2
+random_seed = 42
 
 # Split the train and the validation set for the fitting
 X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
@@ -107,4 +107,4 @@ batch_size = 86
 history = model.fit(X_train, Y_train, batch_size = batch_size, epochs = epochs, 
           validation_data = (X_val, Y_val), verbose = 2)
 
-model = tf.keras.models.load_model('handwritten.keras')
+model.save('handwritten2.keras')

@@ -6,7 +6,7 @@ cap = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
 WIDTH = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
 HEIGHT = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 
-model = tf.keras.models.load_model('handwritten.model')
+model = tf.keras.models.load_model('handwritten2.keras')
 
 def prediction(image, model):
     img = cv2.resize(image, (28, 28))
@@ -16,9 +16,9 @@ def prediction(image, model):
     prob = np.amax(predict)
     class_index = np.argmax(model.predict(img), axis=-1)
     result = class_index[0]
-    if prob < 0.75:
-        result = 0
-        prob = 0
+    #if prob < 0.75:
+    #    result = 0
+    #    prob = 0
     return result, prob
 
 

@@ -3,9 +3,14 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
+from keras.layers import TFSMLayer
 
-model = tf.keras.models.load_model('handwritten.model')
-image_number = 1
+#inference_layer = TFSMLayer('C:/Users/aadis/Documents/PROJECTS/Digit-Recognizer-AI/handwritten2.keras', call_endpoint='serving_default')
+
+# Create a Keras model using the loaded inference-only layer
+#model = tf.keras.Sequential([inference_layer])
+model = tf.keras.models.load_model('handwritten2.keras')
+image_number = 3
 
 while os.path.isfile(f"numbers/num{image_number}.png"):
     try:

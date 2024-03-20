@@ -5,7 +5,6 @@ import matplotlib.image as mpimg
 import seaborn as sns
 import tensorflow as tf
 import keras
-#%matplotlib inline
 
 np.random.seed(2)
 
@@ -13,7 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import itertools
 
-from tensorflow.keras.utils import to_categorical # convert to one-hot-encoding
+from tensorflow.keras.utils import to_categorical
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten, Conv2D, MaxPool2D
 from keras.optimizers import RMSprop
@@ -22,18 +21,14 @@ from keras.callbacks import ReduceLROnPlateau
 from keras.layers import TFSMLayer
 
 
-#sns.set(style='white', context='notebook', palette='deep')
-
-# Load the data
 train = pd.read_csv("train.csv")
 test = pd.read_csv("test.csv")
 
 Y_train = train["label"]
 
-# Drop 'label' column
 X_train = train.drop(labels = ["label"],axis = 1) 
 
-# free some space
+
 del train 
 
 g = sns.countplot(Y_train)
@@ -44,28 +39,24 @@ X_train.isnull().any().describe()
 
 test.isnull().any().describe()
 
-# Normalize the data
+# Normalize
 X_train = X_train / 255.0
 test = test / 255.0
 
-# Reshape image in 3 dimensions (height = 28px, width = 28px , canal = 1)
+# Reshape image in 3 dimensions
 X_train = X_train.values.reshape(-1,28,28,1)
 test = test.values.reshape(-1,28,28,1)
 
-# Encode labels to one hot vectors (ex : 2 -> [0,0,1,0,0,0,0,0,0,0])
+# Encode labels to one hot vectors
 Y_train = to_categorical(Y_train, num_classes = 10)
 
-# Set the random seed
 random_seed = 42
-
-# Split the train and the validation set for the fitting
+# Split the train and val set
 X_train, X_val, Y_train, Y_val = train_test_split(X_train, Y_train, test_size = 0.1, random_state=random_seed)
 
-# Some examples
-g = plt.imshow(X_train[0][:,:,0])
-
 # Set the CNN model 
-# my CNN architechture is In -> [[Conv2D->relu]*2 -> MaxPool2D -> Dropout]*2 -> Flatten -> Dense -> Dropout -> Out
+# CNN architechture
+# In -> [[Conv2D->relu]*2 -> MaxPool2D -> Dropout]*2 -> Flatten -> Dense -> Dropout -> Out
 
 model = Sequential()
 
@@ -101,7 +92,7 @@ learning_rate_reduction = ReduceLROnPlateau(monitor='val_acc',
                                             factor=0.5, 
                                             min_lr=0.00001)
 
-epochs = 10 # Turn epochs to 30 to get 0.9967 accuracy
+epochs = 10 # can increase with more computational power, increases time
 batch_size = 86
 
 history = model.fit(X_train, Y_train, batch_size = batch_size, epochs = epochs, 

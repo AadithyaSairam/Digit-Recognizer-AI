@@ -16,9 +16,9 @@ def prediction(image, model):
     prob = np.amax(predict)
     class_index = np.argmax(model.predict(img), axis=-1)
     result = class_index[0]
-    #if prob < 0.75:
-    #    result = 0
-    #    prob = 0
+    if prob < 0.75:
+        result = 0
+        prob = 0
     return result, prob
 
 

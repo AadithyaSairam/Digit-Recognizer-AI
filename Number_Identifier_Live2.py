@@ -32,7 +32,7 @@ prev_time = 0
 min_area_threshold = 100
 
 # Define the minimum solidity threshold for contours
-min_solidity_threshold = 0.50
+min_solidity_threshold = 0.5
 
 while True:
     # Capture frame-by-frame
@@ -43,8 +43,12 @@ while True:
     # Convert the frame to grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+    # Apply gamma correction to adjust brightness
+    gamma = 1.5
+    gray_corrected = np.array(255 * (gray / 255) ** gamma, dtype='uint8')
+
     # Apply adaptive thresholding to the grayscale image
-    thresh = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
+    thresh = cv2.adaptiveThreshold(gray_corrected, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY_INV, 11, 2)
 
     # Find contours on the thresholded image
     cnts = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -86,7 +90,7 @@ while True:
             predicted_label = np.argmax(prediction)
 
             # Display predicted label on the frame
-            if prob > 0.9:
+            if prob > 0.7:
                 cv2.putText(frame, str(predicted_label), (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 #cv2.putText(frame, str(prob), (x, y - 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
                 cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)

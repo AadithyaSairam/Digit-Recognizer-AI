@@ -82,11 +82,14 @@ while True:
 
             # Make prediction
             prediction = model.predict(digit_roi_rescaled)
+            prob = np.amax(prediction)
             predicted_label = np.argmax(prediction)
 
             # Display predicted label on the frame
-            cv2.putText(frame, str(predicted_label), (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-            cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
+            if prob > 0.9:
+                cv2.putText(frame, str(predicted_label), (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                #cv2.putText(frame, str(prob), (x, y - 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+                cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
 
     # Display the frame
     cv2.imshow('frame', frame)

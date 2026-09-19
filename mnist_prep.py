@@ -11,7 +11,7 @@ MNIST's convention, which every digit fed to the model must match:
 
 1. **28 x 28 pixels**, single channel.
 2. **White digit on a black background.** This is the one that bites. A photo
-   or a scan of handwriting is dark ink on light paper — the opposite — and a
+   or a scan of handwriting is dark ink on light paper, the opposite, and a
    model handed an un-inverted image will confidently return nonsense rather
    than fail loudly.
 3. **Scaled to [0, 1]**, not left at [0, 255]. Feeding raw byte values to a

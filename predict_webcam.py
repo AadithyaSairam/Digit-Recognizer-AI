@@ -10,7 +10,7 @@ labelled. Press `q` to quit.
 
 How it finds digits: adaptive threshold (which handles uneven lighting far
 better than a global threshold), then contours, filtered by area and by
-solidity — the ratio of a contour's area to its convex hull's. Solidity
+solidity, the ratio of a contour's area to its convex hull's. Solidity
 rejects the thin, straggly contours that shadows and paper edges produce
 while keeping the compact blobs that digits are.
 """
@@ -60,7 +60,7 @@ def extract_roi(thresholded, x, y, w, h, pad_ratio=PAD_RATIO):
 
     Cropped from the *thresholded* image, not the grayscale one. This is the
     subtle part: the threshold used here is `THRESH_BINARY_INV`, so its output
-    is already white-digit-on-black — exactly MNIST's convention. Cropping the
+    is already white-digit-on-black, exactly MNIST's convention. Cropping the
     grayscale frame instead yields dark-ink-on-light-paper, the inverse of
     what the model was trained on, and the predictions become noise while
     everything still appears to run.

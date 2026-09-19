@@ -7,7 +7,7 @@ Train the digit classifier on MNIST.
     python train.py --epochs 20 --augment
 
 Loads MNIST through `keras.datasets`, so there is nothing to download by hand
-and no CSV to keep in the repository — it is the same data the Kaggle
+and no CSV to keep in the repository, it is the same data the Kaggle
 digit-recognizer CSVs contain, fetched and cached by Keras.
 """
 
@@ -99,7 +99,7 @@ def main():
     model.summary()
 
     # These have to be *passed to fit*. Constructing a callback and then
-    # forgetting the `callbacks=` argument is silent — training runs normally
+    # forgetting the `callbacks=` argument is silent, training runs normally
     # and the annealer simply never fires.
     callbacks = [
         keras.callbacks.ReduceLROnPlateau(
@@ -148,7 +148,7 @@ def main():
     print(f"Test accuracy : {accuracy:.4f}")
 
     # Per-class accuracy, because a single number hides which digits it
-    # confuses — 4/9 and 3/5/8 are the usual pairs.
+    # confuses, 4/9 and 3/5/8 are the usual pairs.
     predictions = model.predict(x_test, verbose=0).argmax(axis=1)
     print("\nPer-digit accuracy")
     for digit in range(N_CLASSES):

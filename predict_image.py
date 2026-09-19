@@ -5,7 +5,7 @@ Classify digit images from files.
     python predict_image.py numbers/*.png
     python predict_image.py --model digits.keras --show numbers/num7.png
 
-Images are assumed to be dark ink on a light background — a scan, a photo, or
+Images are assumed to be dark ink on a light background, a scan, a photo, or
 something drawn in a paint program. They are inverted to MNIST's white-on-black
 convention by `mnist_prep.prepare(..., invert=True)`.
 """

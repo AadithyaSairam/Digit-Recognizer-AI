@@ -1,0 +1,23 @@
+# --- Data ---
+# MNIST is downloaded and cached by keras.datasets; never commit it.
+*.csv
+data/
+MNIST/
+
+# --- Trained models ---
+*.keras
+*.h5
+*.model/
+checkpoints/
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- OS / editors ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
